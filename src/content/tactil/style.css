@@ -1,0 +1,39 @@
+@media only screen and (max-width : 1000px) {
+    .calendario {
+        max-width: 110px;
+    }
+    .calendario2 {
+        max-width: 700px;
+    }
+
+    .fechas{
+        max-width:57px
+    }
+
+    .dias{
+        max-width:340px !important
+    }
+    .letras{
+        font-size: 10px !important;
+    }
+}
+
+@media only screen and (min-width : 1000px) {
+    .calendario {
+        max-width: 110px;
+    }
+    .calendario2 {
+        max-width: 700px;
+    }
+
+    .fechas{
+        max-width:57px
+    }
+
+    .dias{
+        max-width:340px !important
+    }
+    .letras{
+        font-size: 10px !important;
+    }
+}

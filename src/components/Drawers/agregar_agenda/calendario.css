@@ -1,0 +1,16 @@
+    @media only screen and (max-width : 800px) {
+        .calendario {
+            max-width: 200px;
+        }
+
+        .fechas{
+            max-width:57px
+        }
+
+        .dias{
+            max-width:340px !important
+        }
+        .letras{
+            font-size: 10px !important;
+        }
+    }
