@@ -111,55 +111,37 @@ export default function Index({ lista }) {
             if (rpta) {
                 // aqui va las validaciones 
 
-                let existeTurno = await getExisteTurno({
-                    datos: [{ id: 'paciente', value: selected.paciente.item.Nro_DocIdenti },
-                    { id: 'asignacion', value: drawerOpen.item.asignacionId },
-                    { id: 'fecha', value: drawerOpen.item.item.fecha_calendario.split('T')[0] }]
+                let result = await getGenerarCita({
+                    id_usuario: user._id,
+                    fecha: drawerOpen.item.item.fecha_calendario.split('T')[0],
+                    hora: horaSelected[0],
+                    asignacion: drawerOpen.item.asignacionId,
+                    agenda: drawerOpen.item.agenda.id,
+                    datos: {
+                        doctor: itemAxios.cabecera[0],
+                        turno: drawerOpen.item.item.fecha_calendario.split('T')[0] + 'T' + horaSelected[0],
+                        paciente: selected
+                    },
+                    celular: pacienteWsp,
+                    paciente: selected,
+                    turnoAnterior: drawerOpen.item.recividoPrincipal
                 })
-                if (existeTurno[0].cantidad === 0) {
-                    console.log(horaSelected[0]);
-                    let result = await getGenerarCita({
-                        id_usuario: user._id,
-                        fecha: drawerOpen.item.item.fecha_calendario.split('T')[0],
-                        hora: horaSelected[0],
-                        asignacion: drawerOpen.item.asignacionId,
-                        agenda: drawerOpen.item.agenda.id,
-                        datos: {
-                            doctor: itemAxios.cabecera[0],
-                            turno: drawerOpen.item.item.fecha_calendario.split('T')[0] + 'T' + horaSelected[0],
-                            paciente: selected
-                        },
-                        celular: pacienteWsp,
-                        paciente: selected,
-                        turnoAnterior: drawerOpen.item.recividoPrincipal
-                    })
-                    if (typeof result === 'object') {
-                        mostrarComponent({
-                            contenido: '',
-                            estado: false,
-                        }, 'drawerOpen')
+                if (typeof result === 'object') {
+                    mostrarComponent({
+                        contenido: '',
+                        estado: false,
+                    }, 'drawerOpen')
 
-                        setTimeout(() => {
-                            mostrarComponent({
-                                contenido: 'citaRealizada',
-                                estado: true,
-                                size: 'xs'
-                            }, 'modalOpen')
-                            drawerOpen.item.setAsignacionSelected()
-                        }, 1000)
-                    } else {
-                        enqueueSnackbar('Error: Es posible que se haya generado una cita en simultáneo. Intente con otro horario.', {
-                            variant: 'error',
-                            anchorOrigin: {
-                                vertical: 'top',
-                                horizontal: 'right'
-                            },
-                            TransitionComponent: Zoom,
-                            autoHideDuration: 1000
-                        })
-                    }
+                    setTimeout(() => {
+                        mostrarComponent({
+                            contenido: 'citaRealizada',
+                            estado: true,
+                            size: 'xs'
+                        }, 'modalOpen')
+                        drawerOpen.item.setAsignacionSelected()
+                    }, 1000)
                 } else {
-                    enqueueSnackbar('Error: No puede generar una cita con el mismo doctor en el mismo día', {
+                    enqueueSnackbar('Error: Es posible que se haya generado una cita en simultáneo. Intente con otro horario.', {
                         variant: 'error',
                         anchorOrigin: {
                             vertical: 'top',
@@ -171,14 +153,12 @@ export default function Index({ lista }) {
                 }
 
 
+
             }
         }
 
     }
-    const getExisteTurno = async (obj) => {
-        const response = await axios.post(`http://apis-vesalio.com.pe/existeTurnoPacienteNew`, obj)
-        return response.data;
-    }
+
     return (
 
         <>

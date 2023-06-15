@@ -25,7 +25,6 @@ export default function Index() {
     const handleClickBuscar = async () => {
         const response = await axios.post(`http://apis-vesalio.com.pe/segundoReporte`, { fecha })
         setDatos(response.data.filter(x => parseInt(x.estado_turno_id) !== 3));
-
     }
     return (
         <Card>

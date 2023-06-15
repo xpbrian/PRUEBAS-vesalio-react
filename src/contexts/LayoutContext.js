@@ -201,7 +201,7 @@ export const AuthProviderLayout = (props) => {
                         if (found < 0) {
                             arr.push({
                                 id_especialidad: item.id_especialidad,
-                                epecialidad: item.epecialidad,
+                                epecialidad: item.epecialidad.toUpperCase(),
                                 cantidad: 1
                             })
                         } else {
@@ -214,7 +214,7 @@ export const AuthProviderLayout = (props) => {
                         if (found < 0) {
                             arr.push({
                                 id_usuario: item.id_usuario,
-                                nombres: item.nombres,
+                                nombres: item.nombres.toUpperCase(),
                                 documento: item.documento,
                                 aviso_portal: item.aviso_portal,
                                 genero: item.genero,

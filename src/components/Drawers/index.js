@@ -106,6 +106,8 @@ export default function Index() {
                 return <IntegracionSistcomp />
             case 'resultadosMedicos':
                 return <ResultadosMedicos />
+            case 'agendarPacienteSolo':
+                return <AgengarPacienteSolo />
 
             default:
                 return <></>

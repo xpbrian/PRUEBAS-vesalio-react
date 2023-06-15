@@ -13,11 +13,12 @@ export default function Index({ list }) {
     useEffect(() => {
         const getDatos = async (obj) => {
             const rpta = await axios.post(`http://200.121.91.211:4001/atencionSited`, { dniMedico: obj.documento_doctor, dni: obj.documento_paciente })
-            console.log(rpta.data);            
+            console.log("DatosBonday", rpta.data);            
             setDatos(rpta.data.existe === false ? null : rpta.data)
         }
         getDatos(list)
     }, [list])
+    
     return (
         <Box>
 

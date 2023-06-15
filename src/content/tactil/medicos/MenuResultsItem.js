@@ -10,22 +10,14 @@ export default function MenuResultsItem({ job }) {
     const actionRef1 = useRef(null);
     const [openPeriod, setOpenMenuPeriod] = useState(false);
 
-    const getDatos = async (obj) => {
-        const response = await axios.post(`http://apis-vesalio.com.pe/medicosEspecialidadHorario`, obj)
-        return response.data;
-    }
 
-    const handleClick = async (especialidad, object) => {
+    const handleClick = async (_, object) => {
         setOpenMenuPeriod(false)
-        let datos = await getDatos({ id_especialidad: especialidad, documento: object.documento })
-        mostrarComponent({
-            contenido: 'generarHorario',
-            estado: true,
-            size: 'sm',
-            item: {
-                item: datos
-            }
-        }, 'modalOpen')
+        let tmp = []
+        const response2 = await axios.post(`http://apis-vesalio.com.pe/datosAgendaAll`, { idEspecialidad: null, idPersonal: object.documento, tipo: '02' })
+        if (response2.status === 200) {
+            tmp = response2.data.asignacionDatos
+        }
     }
 
     return (

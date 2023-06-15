@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import Calendario from './Calendario'
 import CardComentarios from './CardComentarios'
 
-export default function Citas() {
+export default function Index() {
     const [tabs, setTabs] = useState([{ value: '01', label: 'Por especialidad', active: true }, { value: '02', label: 'Por medico', active: false }])
     const [especialidadLista, setEspecialidadLista] = useState([])
     const [arrayDatosMedico, setArrayDatosMedico] = useState([])
@@ -62,7 +62,7 @@ export default function Citas() {
         if (tabs.find(x => x.active).value === '02' && medicoSelected === null) {
             setMostrar(false)
         }
-    }, [tabs, especialidadSelected, medicoSelected])
+    }, [tabs, especialidadSelected,medicoSelected])
     useEffect(() => {
         if (especialidadSelected === null) {
             setAsignacionSelecteds([])
@@ -70,7 +70,7 @@ export default function Citas() {
         if (medicoSelected === null) {
             setAsignacionSelecteds([])
         }
-    }, [especialidadSelected, medicoSelected])
+    }, [especialidadSelected,medicoSelected])
 
     const buscarDatos = async () => {
         let tmp = []
@@ -145,16 +145,16 @@ export default function Citas() {
                     </Card>
                 </Grid>
                 <Grid item lg={12}>
-                    <Divider />holas2
+                    <Divider />
                 </Grid>
                 {
                     mostrar && <Grid item lg={4}>
-                        holas3<CardComentarios getDatosMedicoSelected={getDatosMedicoSelected} setAsignacionSelecteds={setAsignacionSelecteds} agignacion={agignacion} />
+                        <CardComentarios getDatosMedicoSelected={getDatosMedicoSelected} setAsignacionSelecteds={setAsignacionSelecteds} agignacion={agignacion} />
                     </Grid>
                 }
 
                 <Grid item lg={8}>
-                    holas4<Calendario tipo={tabs.find(x => x.active).value} agignacionSelecteds={agignacionSelecteds} />
+                    <Calendario tipo={tabs.find(x => x.active).value} agignacionSelecteds={agignacionSelecteds} />
                 </Grid>
 
             </Grid>

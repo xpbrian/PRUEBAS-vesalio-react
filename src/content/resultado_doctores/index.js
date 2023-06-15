@@ -9,6 +9,7 @@ import Result from './Results'
 
 
 export default function Index() {
+
     const [filtro, setFiltro] = useState('')
     const [lista, setLista] = useState([])
 
@@ -18,7 +19,6 @@ export default function Index() {
             const enviar = await axios.post(`http://apis-vesalio.com.pe/resultadosMedicos`, { paciente: filtro })
             setLista(enviar.data);
         }
-
     }
    
     return (

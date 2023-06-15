@@ -175,7 +175,6 @@ export default function ConsultaAmbulatoria() {
         const getRpta = async (id) => {
             try {
                 const res = await axios.get(`http://200.121.91.211:4001/getDatosPausa/${id}`)
-                console.log(res.data[0]);
                 if (res.data.length > 0) {
                     setVezConsulta(res.data[0].datos.vezConsulta)
                     setNoCita(res.data[0].datos.noCita)
