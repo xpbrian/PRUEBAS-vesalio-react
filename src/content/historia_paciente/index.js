@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, IconButton, Tooltip, Typography, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router'
@@ -25,6 +25,24 @@ export default function Index() {
     const [boton, setBoton] = useState(null)
     const [botonEmergenia, setBotonEmergencia] = useState(null)
     const { addItemDrawer, mostrarComponent } = useLayoutContext()
+    const [mostrarPausa, setMostrarPausa] = useState(0)
+
+    const getRpta = async (id) => {
+        try {
+            const res = await axios.get(`http://200.121.91.211:4001/getDatosPausa/${id}`)
+            if (res.data.length > 0) {
+                setMostrarPausa(1)
+            } else {
+                setMostrarPausa(0)
+            }
+
+        } catch (e) {
+            console.log(e);
+            setMostrarPausa(0)
+        }
+
+    }
+
 
     const handleFiltroEspecialidad = (id) => {
         if (filtroEsp.find(x => (x === id)) === undefined) {
@@ -72,6 +90,7 @@ export default function Index() {
     }
 
     useEffect(() => {
+        getRpta(id)
         getDatos(id);
         getDatosTurnoProgramado(id)
         return () => {
@@ -83,9 +102,6 @@ export default function Index() {
         };
     }, [id])
 
-    useEffect(() => {
-        console.log(boton);
-    }, [boton])
 
     const setDatos = async (tipo) => {
         const citas = await axios.get(`http://200.121.91.211:4001/historiaPaciente/${id}`)
@@ -314,6 +330,16 @@ export default function Index() {
                     </Card>
                 </Grid>
             </Grid>
+            {
+                mostrarPausa === 1 && <Box sx={{ position: "fixed", right: "15px", top: "100px" }}>
+                    <Button
+                        variant='contained'
+                        color='error'
+                    >
+                        Atención en Pausa, para continuar con la atencion click en el estestoscopio
+                    </Button>
+                </Box>
+            }
 
 
         </>

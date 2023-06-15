@@ -262,6 +262,9 @@ export default function Consulta({
             } else {
                 guardarAmbulatorio()
             }
+        }else{
+            console.log(noCita);
+
         }
 
     }
@@ -283,9 +286,23 @@ export default function Consulta({
                 selected,
                 valores,
                 mostrar,
-                mostrarReceta
+                mostrarReceta,
+                noCita
             }
             await axios.post(`http://200.121.91.211:4001/BotonPausa`, { turno: id, datos: { ...obj } })
+            enqueueSnackbar("Pausado correctamente", {
+                variant: 'success',
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right'
+                },
+                TransitionComponent: Zoom,
+                autoHideDuration: 1000
+            })
+            setTimeout(() => {
+                window.location.reload(true);
+            }, 1500)
+
         }
     }
     return (

@@ -6,6 +6,7 @@ import SidebarMenuItem from './item';
 import menuItems from './items';
 import useAuth from 'src/hooks/useAuth';
 import HomeIcon from '@mui/icons-material/Home';
+import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 
 const DividerWrapper = styled(Divider)(
   ({ theme }) => `
@@ -181,6 +182,15 @@ function SidebarMenu() {
             name: 'DashBoaard',
             icon: HomeIcon,
             link: '/citas/dashboard'
+          },]
+        })
+      } else if (user.datos.numero_documento === '10007967') {
+        arr.push({
+          ...item, items: [...filter, {
+            tipo: '03',
+            name: 'Resultados medicos',
+            icon: FeaturedPlayListIcon,
+            link: '/clinica/resultado-medicos'
           },]
         })
       } else if (user.datos.numero_documento === '03988703') {

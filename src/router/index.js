@@ -100,6 +100,12 @@ const SolucionErrores = Loader(
 const Tactil = Loader(
   lazy(() => import('src/content/tactil'))
 );
+const BotonesTactil = Loader(
+  lazy(() => import('src/content/botones_tactil'))
+);
+const BotonesTactilAnular = Loader(
+  lazy(() => import('src/content/botones_tactil/anular'))
+);
 
 const router = [
   {
@@ -172,13 +178,24 @@ const router = [
     path: 'citas',
     element: <Authenticated><DashboardLayout><MisCitas /></DashboardLayout></Authenticated>,
     children: [
-      
-        
+      {
+        path: 'botones-tactil',
+        element: <BotonesTactil />
+      },
+      {
+        path: 'tactil',
+        element: <Tactil />
+      },
+      {
+        path: 'anular-cita',
+        element: <BotonesTactilAnular />
+      },
+
       {
         path: 'solucion-errores',
         element: <SolucionErrores />
       },
-       
+
       {
         path: 'reprogramacion/:id',
         element: <Reprogramacion />

@@ -2,9 +2,10 @@
 import { Autocomplete, Button, FormControl, Grid, InputAdornment, Menu, MenuItem, OutlinedInput, styled, TextField } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import useLayoutContext from 'src/hooks/useAuthLayout';
+// import useLayoutContext from 'src/hooks/useAuthLayout';
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
 
 const OutlinedInputWrapper = styled(OutlinedInput)(
     ({ theme }) => `
@@ -16,32 +17,60 @@ const OutlinedInputWrapper = styled(OutlinedInput)(
 export default function SearchFiltro({ filter, handleChangedFilter, handleBuscarFiltro }) {
     const tipos = [{ id: 'documento_paciente', nombre: '#Documento' }, { id: 'nombre_paciente', nombre: 'Apellidos' }]
     const { t } = useTranslation();
-    const { medicos, especialidad } = useLayoutContext()
+    // const { medicos, especialidad } = useLayoutContext()
+    const [especialidadLista, setEspecialidadLista] = useState([])
+    const [arrayDatosMedico, setArrayDatosMedico] = useState([])
     const [medicosLista, setmedicosLista] = useState([]);
     const actionRef1 = useRef(null);
     const [openPeriod, setOpenMenuPeriod] = useState(false);
     const [period, setPeriod] = useState(tipos[0]);
+
+    useEffect(() => {
+        const recuperarDatos = async () => {
+            const medicosEspecialidad = await axios.get(`http://apis-vesalio.com.pe/medicosAll`)
+            if (medicosEspecialidad.status === 200) {
+                console.log(medicosEspecialidad);
+
+                setArrayDatosMedico(medicosEspecialidad.data.reduce((arr, item) => {
+                    let existe = arr.findIndex(y => y.apellidos === item.apellidos)
+                    if (existe < 0) {
+                        arr.push(item)
+                    }
+                    return arr
+                }, []))
+
+                setEspecialidadLista(medicosEspecialidad.data.reduce((arr, item) => {
+                    let existe = arr.findIndex(y => y.especialidad_id === item.especialidad_id)
+                    if (existe < 0) {
+                        arr.push(item)
+                    }
+                    return arr
+                }, []))
+                setmedicosLista(medicosEspecialidad.data.reduce((arr, item) => {
+                    let existe = arr.findIndex(y => y.apellidos === item.apellidos)
+                    if (existe < 0) {
+                        arr.push(item)
+                    }
+                    return arr
+                }, []))
+
+            }
+        }
+        recuperarDatos()
+    }, [])
+
+
     const handleFilterEspecialidad = (_, newValue) => {
         handleChangedFilter('especialidad', newValue === null ? newValue : newValue.id)
         if (newValue === null) {
-            setmedicosLista(medicos)
+            setmedicosLista(arrayDatosMedico)
         } else {
-            let filtro = medicos.filter(x => x.especialidades.includes(parseInt(newValue.id)))
+            let filtro = arrayDatosMedico.filter(x => x.especialidad_id === newValue.id)
             setmedicosLista(filtro);
         }
     }
-    useEffect(() => {
-        setmedicosLista(medicos.sort(function (a, b) {
-            if (a.title > b.title) {
-                return 1;
-            }
-            if (a.title < b.title) {
-                return -1;
-            }
-            // a must be equal to b
-            return 0;
-        }))
-    }, [medicos])
+
+
     const handleFilterMedicos = (_, newValue) => {
         handleChangedFilter('doctor', newValue === null ? newValue : newValue.id);
         // aqui va el selected
@@ -83,10 +112,10 @@ export default function SearchFiltro({ filter, handleChangedFilter, handleBuscar
                     <Autocomplete
                         fullWidth
                         onChange={handleFilterEspecialidad}
-                        options={especialidad.reduce((arr, item) => {
+                        options={especialidadLista.reduce((arr, item) => {
                             arr.push({
-                                id: item.id_especialidad,
-                                title: `${item.epecialidad}`
+                                id: item.especialidad_id,
+                                title: `${item.nombre}`
                             })
                             return arr
                         }, []).sort(function (a, b) {
@@ -119,7 +148,7 @@ export default function SearchFiltro({ filter, handleChangedFilter, handleBuscar
                         options={medicosLista.reduce((arr, item) => {
                             arr.push({
                                 id: item.documento,
-                                title: `${item.nombres}`
+                                title: `${item.apellidos.toUpperCase()}`
                             })
                             return arr
                         }, []).sort(function (a, b) {

@@ -13,7 +13,7 @@ import ListaCitasTabla from './Lista'
 
 export default function ListaCitas() {
     // const [tabs, setTabs] = useState([{ value: '01', label: 'Todos', active: true }, { value: '02', label: 'Por App', active: false }])
-    const [filter, setFilter] = useState({ fecha: '', paciente: null, tipo_paciente: 'documento_paciente', especialidad: null, doctor: null })
+    const [filter, setFilter] = useState({ fecha:'', paciente: null, tipo_paciente: 'documento_paciente', especialidad: null, doctor: null })
     const { enqueueSnackbar } = useSnackbar();
     const [datos, setDatos] = useState([])
 

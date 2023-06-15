@@ -10,7 +10,7 @@ import PageHeader from './PageHeader'
 // import CantidadDeserciones from './cantidad_derserciones'
 // import CantidadCitasPaciente from './cantidad_citas_paciente'
 // import ReporteQuinto from './reporte_quinto'
-
+import ReporteHorarioTrabajado from './horas_trabajadas'
 import MedicosSemanas from './medicos_semanas'
 import ReporteCantidad from './reporte_cantidad'
 
@@ -37,7 +37,9 @@ export default function Index() {
                 <Grid item lg={12}>
                     <MedicosSemanas />
                 </Grid>
-
+                <Grid item lg={12}>
+                    <ReporteHorarioTrabajado />
+                </Grid>
                 <Grid item lg={12}>
                     <ReporteCantidad />
                 </Grid>

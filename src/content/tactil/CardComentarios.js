@@ -34,6 +34,8 @@ export default function index({ agignacion, getDatosMedicoSelected, setAsignacio
 
     useEffect(() => {
         setAsignacionSelecteds(lista)
+        console.log(lista);
+        console.log("estoyqui");
     }, [lista])
 
     const { mostrarComponent } = useLayoutContext()

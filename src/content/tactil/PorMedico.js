@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react'
 // import useLayoutContext from 'src/hooks/useAuthLayout';
 
 
-export default function ContenidoCalendario({ item, agignacionSelecteds, paciente, verSacarCita }) {
+export default function ContenidoCalendario({ item, agignacionSelecteds, paciente, verSacarCita, setCita }) {
 
     const [lista, setLista] = useState([])
     const [data, setData] = useState([])
     // const { mostrarComponent } = useLayoutContext()
     const [mostrar, setMostrar] = useState(null)
-    
+
     useEffect(() => {
         setLista([])
         setData([])
@@ -74,7 +74,7 @@ export default function ContenidoCalendario({ item, agignacionSelecteds, pacient
                 }, []).length
 
             })
-        }else{
+        } else {
             setMostrar(null)
         }
         console.log(lista);
@@ -96,16 +96,22 @@ export default function ContenidoCalendario({ item, agignacionSelecteds, pacient
         //         paciente: "llegué"
         //     }
         // }, 'drawerOpen')
-
-        verSacarCita()
-
         console.log(lista[0])
         console.log(agignacionSelecteds[0])
         console.log(item)
 
+        setCita({
+            lista: lista[0],
+            agignacionSelecteds: agignacionSelecteds[0],
+            item: item
+        })
+
+        verSacarCita()
+
+
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(paciente)
     }, [paciente])
 
@@ -128,7 +134,7 @@ export default function ContenidoCalendario({ item, agignacionSelecteds, pacient
                         {
                             mostrar !== null && <>
                                 <Divider />
-                                <Box style={{ display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "column", justifyItems: "center",maxHeight: "150px" }}>
+                                <Box style={{ display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "column", justifyItems: "center", maxHeight: "150px" }}>
                                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mt: 2, pb: 1 }}>
                                         {/* <Chip onClick={hanldeClick} label={mostrar.bloqueados} style={{ backgroundColor: "#f14", marginBottom: "10px", color: "white" }} />
                                         <Chip onClick={hanldeClick} label={mostrar.citados} style={{ backgroundColor: "#ff0", marginBottom: "10px" }} /> */}

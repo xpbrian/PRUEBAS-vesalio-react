@@ -58,6 +58,7 @@ export default function AnularCita() {
                             estado: false,
                             size: 'xs',
                         }, 'modalOpen')
+                        window.location.reload(true)
                     }, 800)
 
                 }

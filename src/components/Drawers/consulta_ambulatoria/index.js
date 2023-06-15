@@ -145,6 +145,7 @@ export default function ConsultaAmbulatoria() {
     const getDatos = async () => {
         try {
             const res = await axios.get(`http://200.121.91.211:4001/medicionAmulatorioEmergencia/${drawerOpen.item.datosUsuario.Nro_DocIdenti}`)
+            console.log(res);
             if (res.data.mediciones.length > 0) {
                 setNoCita(false)
                 setMediciones([{
@@ -265,7 +266,8 @@ export default function ConsultaAmbulatoria() {
                         estudios={estudios}
                         hospitaliza={hospitaliza}
                         removeEstudios={removeEstudios}
-                        noCita={noCita} mediciones={mediciones} />
+                        noCita={noCita}
+                         mediciones={mediciones} />
                 }
                 {
                     tabs.find(x => x.active).value === '01' && <Antecedentes />

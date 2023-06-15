@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CalendarioItem from './CalendarioItem'
 import axios from 'axios';
 
-export default function CalendarioAgenda({tipo,agignacionSelecteds, lista}) {
+export default function CalendarioAgenda({tipo,agignacionSelecteds, lista, verSacarCita, setCita}) {
     const [anio, setAnio] = useState(null)
     const [mes, setMes] = useState(null)
     const [calendario, setCalendario] = useState([])
@@ -36,10 +36,8 @@ export default function CalendarioAgenda({tipo,agignacionSelecteds, lista}) {
 
     }, [])
 
-    useEffect(()=>{
-        console.log(lista)
-    }, [lista])
-
+   
+    
     return (
         <Card >
 
@@ -81,7 +79,7 @@ export default function CalendarioAgenda({tipo,agignacionSelecteds, lista}) {
                 </Grid>
             </Grid>
             <Divider />
-            <CalendarioItem lista={lista} calendario={calendario} tipo={tipo} agignacionSelecteds={agignacionSelecteds}/>
+            <CalendarioItem setCita={setCita} verSacarCita={verSacarCita} lista={lista} calendario={calendario} tipo={tipo} agignacionSelecteds={agignacionSelecteds}/>
         </Card>
 
     )

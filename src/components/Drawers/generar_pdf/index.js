@@ -14,6 +14,7 @@ export default function Index() {
     const [textPersonales, setTextPersonales] = useState([
         { id: 'examen', label: 'EXAMEN:', value: '', type: 'text', tipo: 'text', xs: 12, lg: 6, md: 6, onchanged: (e) => handleChangedText(e), display: true },
         { id: 'cia', label: 'CIA:', value: '', type: 'text', tipo: 'text', xs: 12, lg: 6, md: 6, onchanged: (e) => handleChangedText(e), display: true },
+        { id: 'doctor', label: 'Doctor Solicitante:', value: '', type: 'text', tipo: 'text', xs: 12, lg: 12, md: 12, onchanged: (e) => handleChangedText(e), display: true },
         { id: 'informe', label: 'INFORME:', value: '', type: 'text', tipo: 'textArea', xs: 12, lg: 12, md: 12, onchanged: (e) => handleChangedText(e), display: true },
     ]);
     const [informeDetalle, setInformeDetalle] = useState([])
@@ -101,7 +102,7 @@ export default function Index() {
     }
     const handleAddImagenes = () => {
         let cantidad = imagenes.length + 1
-        setImagenes(x => [...x, { id: 'id_' + cantidad, label: 'Imagen ' + cantidad + ':', value: '', type: 'file', xs: 12, lg: 12, md: 12 },])
+        setImagenes(x => [...x, { id: 'id_' + cantidad, label: '' + cantidad + ':', value: '', type: 'file', xs: 12, lg: 12, md: 12 },])
     }
     const handleRemoveConclusion = (id) => {
 
@@ -139,17 +140,18 @@ export default function Index() {
         let conclu = ''
         let img12 = ''
         informeDetalle.map(x => {
-            lista += `<li style="text-align: left;"><p>${x.value}</p></li>`
+            lista += `<li style="text-align: left; font-size: 12px !important"><p>${x.value}</p></li>`
             return false
         })
         conclusion.map(x => {
-            conclu += `<li style="text-align: left;"><p><b>${x.value}</b></p></li>`
+            conclu += `<li style="text-align: left ; font-size: 12px !important"><p><b>${x.value}</b></p></li>`
             return false
         })
         imagenes.map(x => {
-            img12 += `<div class="col-lg-4" style="align-items: center;"><img src="${x.value}"  width="200" height="200"/></div>`
+            img12 += `<div class="col-lg-4" style="align-items: center"><img src="${x.value}" style="objet-fit: cover; margin-top: 300px" width="700" height="400"/></div>`
             return false
         })
+        let base641 = "https://www.vesalio.com.pe/wp-content/uploads/2017/08/Logo-Vesalio-fondo-blanco.jpg"
         let fecha = new Date().toISOString().split('T')[0]
         let formarFecha = fecha.split('-')[2] + '/' + fecha.split('-')[1] + '/' + fecha.split('-')[0]
         let nombres = persona.Des_ApePaterno + ' ' + persona.Des_ApeMaterno + ' ' + persona.Des_Nombres
@@ -158,41 +160,164 @@ export default function Index() {
         <style>
         h1 { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } 
         p { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
-        </style>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div style="padding:30px;">
-        <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+
+        .flexi1{
+            position: relative;
+            left: 30px;
+            top: -70px;
+        }
+        
+        .flexi2{
+          position: reative;
+          margin-left: 55%;
+          margin-top: -180px
+        }
+
+        #flexi3{
+          position: reative;
+          margin-top: -120px;
+          margin-left: -200px
+        }
+
+        #cajafoto2{
+          width: 200px;
+        
+        }
+
+        .cajafoto3{
+          position: absolute;
+          left: 5px;
+          width: 200px;        
+        }
+
+        #imagess{
+            width: 500px;
+            height: 250px;
+            objet-fit: cover;
+            margin-top: 300px
+        }
+   
+        .footer2 {
+            position: absolute;
+            border: 1px solid transparent;
+            top: 900px;
+            right:30px;
+            background-color: transparent;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .footer3 {
+            position: absolute;
+            border: 1px solid transparent;
+            top: 2000px;
+            right:30px;
+            background-color: transparent;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #encabezado{
+            position: absolute;
+            border: 1px solid transparent;
+            top: 1200px;
+            background-color: transparent;
+            text-align: center;
+            box-sizing: border-box;
+            width: 750px
+        }
+
+
+    </style>
+            <br>
+            <br>
+            <br>
+            <br>
+        
+
+        <div style="margin-left: -30px">
+                                                                  
+            <div class="flexi1">
+                <div id="cajafoto1">
+                    <img id="cajafoto2" style="margin-left: -2px" width={20} src=${base641} alt='logoVesalio' />
+                </div>
+
+                <div style="display: flex; flex-direction: column; justify-content: center; justify-items: center; align-content: center; align-items: center;  margin-top: -10px">
+                    <div style="font-size: 10px">Joseph Thompson N° 140 - San Borja</div>
+                    <div style="font-size: 10px">Telf.: 618-9999 Anexo 234</div>
+                </div>
+            </div>
+
+            <div class="flexi2">
+                <div style="display: flex; flex-direction: column; justify-content: left; justify-items: left; align-content: left; align-items: left;  margin-top: 20px">
+                    <div class="negrita"><strong>Dr. Jorge L. Huayanay Santos</strong></div>
+                    <div >Radiología - Ecografía</div>
+                    <div >CMP. 15092 RE. 6228</div>
+                </div>
+            </div>
+  
+        </div>
+
+        <div id="encabezado">
+                                                                  
+            <div style="position: absolute; left: 10px; top: -5px">
+                <div>
+                    <img width="200" src=${base641} alt='logoVesalio' />
+                </div>
+ 
+                <div style="display: flex; flex-direction: column; justify-content: left; justify-items: left; align-content: left; align-items: left;  margin-top: -10px">
+                    <div style="font-size: 10px">Joseph Thompson N° 140 - San Borja</div>
+                    <div style="font-size: 10px">Telf.: 618-9999 Anexo 234</div>
+                </div>
+            </div>
+ 
+            <div style="position: absolute; right: 20px"; top: 30px">
+                <div>
+                    <div class="negrita"><strong>Dr. Jorge L. Huayanay Santos</strong></div>
+                    <div >Radiología - Ecografía</div>
+                    <div >CMP. 15092 RE. 6228</div>
+                </div>
+            </div>
+            <hr style="height:1px;border:none;color:#333;background-color:#333; width: 700px; margin-left: 0px; margin-top: 150px" />
+  
+        </div>
+ 
+   
+        <div  style="padding:30px; padding-top: 60px; margin-left: -30px">
+        <hr style="height:1px;border:none;color:#333;background-color:#333; width: 700px; margin-left: 0px" />
         <p><strong>PACIENTE:&nbsp;</strong>${nombres}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>H.Cl.N&ordm;:</strong>${persona.Nro_Historia}</p>
         <p><strong>FECHA:&nbsp;</strong>${formarFecha}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>EXAMEN:</strong><strong>${textPersonales.find(x => x.id === 'examen').value}</strong></p>
-        <p><strong>INDICACION DEL DR(A):&nbsp;</strong>Julio Ramon M.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<strong>CIA:</strong>${textPersonales.find(x => x.id === 'cia').value}</p>
-        <hr/>
-        <p style="text-align: center;"><span style="text-decoration: underline;"><strong>INFORME</strong></span></p>
+        
+        <p><strong>INDICACION DEL DR(A):&nbsp;${textPersonales.find(x => x.id === 'doctor').value}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>CIA:</strong>${textPersonales.find(x => x.id === 'cia').value}</p>
+        <hr style="height:1px;border:none;color:#333;background-color:#333; width: 700px; margin-left: 0px" />
+        <p style="text-align: center;"><span style="text-decoration: underline; margin-left: -190px"><strong>INFORME</strong></span></p>
         <p style="text-align: justify;"><strong>${textPersonales.find(x => x.id === 'informe').value}</strong></p>
         <ul>
             ${lista}
         </ul>
         <p>CONCLUSI&Oacute;N:</p>
-        <ul>
+        <ul style=" max-width: 700px !important; margin-left: 0px">
         ${conclu}
         </ul>
-        <div class="row">
+        <div style="page-break-before:always; margin-top:30px " id="imagess" class="row">
         ${img12}
         
 
             
         </div>
        
-        <p style="margin-left: 230px;">Atentamente</p>
-        <p  style="margin-left:230px;">
-            <img src="${firma}"  width="200" height="200"/>
-        </p>
+       
+        <div>
+            <img class="footer2" src="${firma}" width="200" height="200"/>
         </div>
+        <div>
+            <img class="footer3" src="${firma}" width="200" height="200"/>
+        </div>
+        </div>
+
+        <script>
+            console.log(${img12})
+        </script>
+
        `
         let nombresFinal = ''
         nombres.split('').map(x => {

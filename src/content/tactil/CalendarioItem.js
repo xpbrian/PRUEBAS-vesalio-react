@@ -6,7 +6,7 @@ import PorMedico from './PorMedico'
 import './style.css'
 
 
-export default function CalendarCitas({ calendario, tipo, agignacionSelecteds, lista, verSacarCita }) {
+export default function CalendarCitas({ calendario, tipo, agignacionSelecteds, lista, verSacarCita, setCita }) {
     const { dias } = useLayoutContext()
     const [construir, setConstruir] = useState([])
     const [datos, setDatos] = useState([])
@@ -44,9 +44,9 @@ export default function CalendarCitas({ calendario, tipo, agignacionSelecteds, l
     }, [datos])
 
 
-    // useEffect(() => {
-    //     console.log(verSacarCita())
-    // }, [])
+    useEffect(() => {
+        console.log(verSacarCita)
+    }, [])
 
     return (
         <>
@@ -84,7 +84,7 @@ export default function CalendarCitas({ calendario, tipo, agignacionSelecteds, l
                                                                                 (tipo === '01' && agignacionSelecteds.length > 0) && <PorEspecialidad item={y} agignacionSelecteds={agignacionSelecteds} />
                                                                             }
                                                                             {
-                                                                                (tipo === '02' && agignacionSelecteds.length > 0) && <PorMedico verSacarCita={verSacarCita} paciente={paciente} item={y} agignacionSelecteds={agignacionSelecteds} />
+                                                                                (tipo === '02' && agignacionSelecteds.length > 0) && <PorMedico setCita={setCita} verSacarCita={verSacarCita} paciente={paciente} item={y} agignacionSelecteds={agignacionSelecteds} />
                                                                             }
                                                                         </Box>
 

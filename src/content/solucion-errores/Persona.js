@@ -179,10 +179,11 @@ export default function Paciente({ datos, buscar, getPersonaFull }) {
         }, 'drawerOpen')
     }
     const handleClickRegistrarSistComp = async () => {
-        const enviar = await axios.post(`http://200.121.91.211:4001/insertPersonaAlephoo`, {
-            documento: textAlephoo.find(x => x.id === 'documento').value,
-            apellidos: textAlephoo.find(x => x.id === 'apellidos').value,
-            nombres: textAlephoo.find(x => x.id === 'nombres').value
+        const enviar = await axios.post(`http://200.121.91.211:4001/insertPersonaSistcomp`, {
+            documento: textSistComp.find(x => x.id === 'documento').value,
+            paternos: textSistComp.find(x => x.id === 'paternos').value,
+            maternos: textSistComp.find(x => x.id === 'maternos').value,
+            nombres: textSistComp.find(x => x.id === 'nombres').value
         })
         if (enviar.status === 200) {
             getPersonaFull(textAlephoo.find(x => x.id === 'documento').value)

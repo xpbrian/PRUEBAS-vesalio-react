@@ -248,7 +248,12 @@ export default function ListaCitasTabla({ datos }) {
                                                 </Tooltip>
                                             )
                                         }
-
+                                        {
+                                        list.pausa.length > 0 &&
+                                            <Label color="error">
+                                                {list.pausa}
+                                            </Label>
+                                        }
                                     </TableCell>
                                 </TableRow>
                             );

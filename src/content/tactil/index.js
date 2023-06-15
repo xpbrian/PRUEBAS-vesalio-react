@@ -10,8 +10,8 @@ import useLayoutContext from 'src/hooks/useAuthLayout';
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
 import axios from 'axios';
 import ResultBuscaPaciente from './ResultBuscaPaciente'
-import Citas from "./Citas.js";
-// import Citas from "./Citas";
+import MedicosLista from './medicos'
+import CitasTactil from "./CitasTactil";
 
 const OutlinedInputWrapper = styled(OutlinedInput)(
     ({ theme }) => `
@@ -73,7 +73,9 @@ export default function index() {
     const [lista, setlista] = useState([]);
     const [mostrar, setMostrar] = useState(false);
     const [selected, setSelected] = useState({ paciente: { item: null, selected: false } })
-
+    const [agignacion, setAsignacion] = useState([])
+    const [agignacionSelecteds, setAsignacionSelecteds] = useState([])
+    const [mostrarCalendario, setMostrarCalendario] = useState(0);
 
     const handleBuscarPaciente = async () => {
 
@@ -106,9 +108,9 @@ export default function index() {
         })
     }
 
-    useEffect(() => { 
-        console.log(selected) 
-       
+    useEffect(() => {
+        console.log(selected)
+
     }, [selected])
 
     const [pagina1, setPagina1] = useState(true);
@@ -116,18 +118,24 @@ export default function index() {
     const handleContinuar1 = () => {
         setPagina1(false)
     }
-
     useEffect(() => {
-        console.log(pagina1)
-    }, []);
+        setAsignacionSelecteds(agignacion)
+        if (agignacion.length > 0) {
+            setMostrarCalendario(1)
+        }
+    }, [agignacion])
 
+    const handleVolver = () => {
+        setMostrarCalendario(0)
+        setAsignacion([])
+        setAsignacionSelecteds([])
+    }
+ 
     return (
         <div className="App">
 
             {pagina1 ?
-
                 <>
-
                     <Box style={{ height: "100vh", overflowY: "hidden" }}>
 
                         <Box style={{ display: "flex", justifyContent: "center", justifyItems: "center", alignContent: "center", alignItems: "center", flexDirection: "column" }}>
@@ -258,8 +266,13 @@ export default function index() {
                 :
 
                 <>
-                    <Box>hola</Box>
-                    <Citas lista={lista} />
+                    {
+                        mostrarCalendario === 0 ? <MedicosLista setAsignacion={setAsignacion} /> :
+                            <CitasTactil lista={lista} selected={selected} agignacionSelecteds={agignacionSelecteds} setAsignacionSelecteds={setAsignacionSelecteds} agignacion={agignacion} handleVolver={handleVolver} />
+
+                    }
+
+
                 </>
 
             }
